@@ -1,0 +1,74 @@
+const q=s=>document.querySelector(s),qa=s=>[...document.querySelectorAll(s)];
+const dayInfo={A:'Göğüs · sırt · bacak · karın',B:'Üst göğüs · sırt · omuz · bacak · karın',C:'Göğüs · sırt · arka bacak · karın'};
+const warmup=[
+{id:'catcamel',name:'Cat–Cow',muscles:'Mobilite',reps:'6',sets:1,weighted:false,cue:'Yavaş ve kontrollü.'},
+{id:'hiprotation',name:'Ayakta Kalça Rotasyonu',muscles:'Mobilite',reps:'6/yan',sets:1,weighted:false,cue:'Kalçayı döndür, beli zorlama.'},
+{id:'bwsquat',name:'Bodyweight Squat',muscles:'Isınma',reps:'8',sets:1,weighted:false,cue:'Topuklar yerde kalsın.'},
+{id:'bridge',name:'Glute Bridge',muscles:'Glute aktivasyonu',reps:'10',sets:1,weighted:false,cue:'Kalçayı sık, beli zorlama.'},
+{id:'deadbug',name:'Dead Bug',muscles:'Core kontrolü',reps:'6/yan',sets:1,weighted:false,cue:'Bel kontrolünü kaybetme.'},
+{id:'scap',name:'Scapular Retraction',muscles:'Omuz aktivasyonu',reps:'10',sets:1,weighted:false,cue:'Omuzları kulaklara çekme.'}
+];
+const week1={
+A:[
+{id:'bench',name:'Dumbbell Bench Press',muscles:'Göğüs · triceps',reps:'8–10',sets:2,weighted:true,cue:'Kontrollü indir.'},
+{id:'chestrow',name:'Chest-supported Row',muscles:'Sırt · biceps',reps:'8–10',sets:2,weighted:true,cue:'Göğsünü sehpaya destekle.'},
+{id:'goblet',name:'Goblet Squat',muscles:'Quadriceps · glute',reps:'8',sets:2,weighted:true,cue:'Dizler ayak yönünde.'},
+{id:'bridge',name:'Glute Bridge',muscles:'Glute',reps:'10–12',sets:2,weighted:false,cue:'Üstte kalçayı sık.'},
+{id:'deadbug',name:'Dead Bug',muscles:'Karın',reps:'6/yan',sets:2,weighted:false,cue:'Yavaş yap.'}],
+B:[
+{id:'incline',name:'Incline Dumbbell Press',muscles:'Üst göğüs · triceps',reps:'8–10',sets:2,weighted:true,cue:'Sehpa 20–35°.'},
+{id:'row1',name:'One-arm Dumbbell Row',muscles:'Sırt · biceps',reps:'8–10/kol',sets:2,weighted:true,cue:'Dirseği kalçaya çek.'},
+{id:'lunge',name:'Reverse Lunge',muscles:'Bacak · glute',reps:'6/bacak',sets:2,weighted:false,cue:'Geri adımı kontrollü al.'},
+{id:'rdl',name:'Dumbbell Romanian Deadlift',muscles:'Hamstring · glute',reps:'8',sets:2,weighted:true,cue:'Kalçayı geriye gönder.'},
+{id:'sideplank',name:'Side Plank',muscles:'Karın',reps:'20–30 sn/yan',sets:2,weighted:false,cue:'Kalçayı düşürme.'}],
+C:[
+{id:'floorpress',name:'Dumbbell Floor Press',muscles:'Göğüs · triceps',reps:'8–10',sets:2,weighted:true,cue:'Dirsekleri kontrollü indir.'},
+{id:'chestrow',name:'Chest-supported Row',muscles:'Sırt · biceps',reps:'8–10',sets:2,weighted:true,cue:'Kürek kemiklerini çek.'},
+{id:'goblet',name:'Goblet Squat',muscles:'Quadriceps · glute',reps:'8–10',sets:2,weighted:true,cue:'Topuklar yerde.'},
+{id:'reversecrunch',name:'Reverse Crunch',muscles:'Karın',reps:'8–10',sets:2,weighted:false,cue:'Kuyruk sokumunu kontrollü kaldır.'},
+{id:'curl',name:'Dumbbell Curl',muscles:'Biceps',reps:'10–12',sets:2,weighted:true,cue:'Belden sallanma.'}]
+};
+const base={
+A:[
+{id:'bench',name:'Dumbbell Bench Press',muscles:'Göğüs · triceps',reps:'8–12',weighted:true,cue:'Kontrollü indir.'},
+{id:'chestrow',name:'Chest-supported Row',muscles:'Sırt · biceps',reps:'8–12',weighted:true,cue:'Göğsünü sehpaya destekle.'},
+{id:'goblet',name:'Goblet Squat',muscles:'Quadriceps · glute',reps:'8–12',weighted:true,cue:'Dizler ayak yönünde.'},
+{id:'rdl',name:'Dumbbell Romanian Deadlift',muscles:'Hamstring · glute',reps:'8–12',weighted:true,cue:'Kalçayı geriye gönder.'},
+{id:'crunch',name:'Crunch / Dumbbell Crunch',muscles:'Karın',reps:'10–15',weighted:true,cue:'15 kolay olursa hafif dumbbell ekle.'},
+{id:'curl',name:'Dumbbell Curl',muscles:'Biceps',reps:'10–15',weighted:true,cue:'İnişi yavaş yap.'}],
+B:[
+{id:'incline',name:'Incline Dumbbell Press',muscles:'Üst göğüs · triceps',reps:'8–12',weighted:true,cue:'Sehpa 20–35°.'},
+{id:'row1',name:'One-arm Dumbbell Row',muscles:'Sırt · biceps',reps:'8–12/kol',weighted:true,cue:'Omzu yükseltme.'},
+{id:'split',name:'Bulgarian Split Squat',muscles:'Quadriceps · glute',reps:'8–10/bacak',weighted:true,cue:'Ön ayağa yüklen.'},
+{id:'shoulder',name:'Seated Dumbbell Shoulder Press',muscles:'Omuz · triceps',reps:'8–12',weighted:true,cue:'Oturarak press et.'},
+{id:'reversecrunch',name:'Reverse Crunch',muscles:'Karın',reps:'10–15',weighted:false,cue:'Momentum kullanma.'},
+{id:'triceps',name:'Overhead Triceps Extension',muscles:'Triceps',reps:'10–15',weighted:true,cue:'Dirsekleri sabit tut.'}],
+C:[
+{id:'floorpress',name:'Dumbbell Floor Press',muscles:'Göğüs · triceps',reps:'8–12',weighted:true,cue:'Kontrollü press.'},
+{id:'chestrow',name:'Chest-supported Row',muscles:'Sırt · biceps',reps:'8–12',weighted:true,cue:'Kürek kemiklerini çek.'},
+{id:'lunge',name:'Reverse Lunge',muscles:'Bacak · glute',reps:'8–10/bacak',weighted:true,cue:'Geri adımı kontrollü al.'},
+{id:'rdl',name:'Dumbbell Romanian Deadlift',muscles:'Hamstring · glute',reps:'8–12',weighted:true,cue:'Hamstring gerilimini hisset.'},
+{id:'crunch',name:'Crunch / Dumbbell Crunch',muscles:'Karın',reps:'10–15',weighted:true,cue:'Boynundan çekme.'},
+{id:'hammer',name:'Hammer Curl',muscles:'Biceps',reps:'10–15',weighted:true,cue:'Dirsek sabit kalsın.'}]
+};
+const tenor={
+catcamel:['3241472213518054401','https://tenor.com/view/cat-cow-stretch-gif-3241472213518054401','1'],hiprotation:['13808788','https://tenor.com/view/shaking-hip-rotation-hip-rotating-relaxing-fitness-gif-13808788','1.77'],bwsquat:['20516887','https://tenor.com/view/squat-james-smith-james-smith-pt-perfect-form-working-out-gif-20516887','0.56'],bridge:['16591507','https://tenor.com/view/glute-bridge-exercise-workout-gif-16591507','1'],deadbug:['19407840','https://tenor.com/view/deadbug-core-gif-19407840','1.78'],scap:['25307034','https://tenor.com/view/rhomboid-major-shoulder-retraction-scapula-adduction-adduction-retraction-gif-25307034','1.34'],bench:['12102433772138781391','https://tenor.com/view/dumbbellbenchpress-gif-12102433772138781391','1'],row1:['25623538','https://tenor.com/view/db-tripod-row-gif-25623538','1.79'],goblet:['25623494','https://tenor.com/view/db-goblet-squats-gif-25623494','1.79'],rdl:['16373163138971048501','https://tenor.com/view/dumbbell-rdl-gif-16373163138971048501','1'],curl:['8434444834006563548','https://tenor.com/view/dumbbellbicepcurls-gif-8434444834006563548','1'],incline:['7606640835620086247','https://tenor.com/view/gymexercisesmen-inclinedumbbellpress-gif-7606640835620086247','1'],split:['25623757','https://tenor.com/view/db-bulgarian-split-squat-gif-25623757','1.79'],shoulder:['17350548','https://tenor.com/view/shoulder-press-seated-shoulder-press-lift-work-out-exercise-gif-17350548','1'],sideplank:['12670642771450085987','https://tenor.com/view/noequipmentexercisesmen-sideplanks-gif-12670642771450085987','1.77'],triceps:['26615160','https://tenor.com/view/seated-dumbbell-overhead-triceps-extension-gif-26615160','2.22'],floorpress:['14058573','https://tenor.com/view/lifting-weights-dumbbell-press-gains-training-exercise-gif-14058573','1.78'],chestrow:['25615009','https://tenor.com/view/chest-supported-row-gif-25615009','1.79'],lunge:['25623789','https://tenor.com/view/db-reverse-lunge-gif-25623789','1.79'],reversecrunch:['16737113','https://tenor.com/view/reverse-crunches-exercise-home-workouts-travel-workouts-fitness-gif-16737113','1.78'],hammer:['9866968935600309559','https://tenor.com/view/dumbell-hammer-curls-gif-9866968935600309559','0.56'],crunch:['27383226','https://tenor.com/view/abs-crunch-gif-27383226','1.79']};
+function todayKey(){let d=new Date().getDay();return d===1?'A':d===3?'B':d===5?'C':'A'}
+const def=()=>({week:1,selectedDay:todayKey(),logs:[],done:{}});
+function state(){try{let s=JSON.parse(localStorage.getItem('evdeGuclenV7')||localStorage.getItem('evdeGuclenV2')||'{}');return{...def(),...s,selectedDay:s.selectedDay||todayKey(),logs:s.logs||[],done:s.done||{}}}catch{return def()}}
+function save(s){localStorage.setItem('evdeGuclenV7',JSON.stringify(s))}
+const ws=(w,s)=>`w${w}::${s}`;
+function program(w){if(+w===1)return week1;let sets=+w===2?2:3,p={};Object.entries(base).forEach(([d,rs])=>p[d]=rs.map((r,i)=>({...r,sets:(+w===5&&d==='A'&&i===0)?4:sets})));if(+w===2)p.B=p.B.map(r=>r.id==='split'?{...r,id:'lunge',name:'Reverse Lunge',reps:'8/bacak',weighted:true,cue:'Geri adımı kontrollü al.'}:r);return p}
+function last(id){return(state().logs||[]).find(x=>x.id===id&&x.weight!==undefined&&x.weight!==null&&String(x.weight).trim()!=='')}
+function gif(c,id){if(c.dataset.loaded==='1')return;let t=tenor[id];if(!t){c.innerHTML='<div class="empty">GIF bulunamadı</div>';return}c.innerHTML=`<div class="tenor-box"><div class="tenor-gif-embed" data-postid="${t[0]}" data-share-method="host" data-aspect-ratio="${t[2]}" data-width="100%"><a href="${t[1]}">GIF</a></div><a class="tenor-credit" href="${t[1]}" target="_blank" rel="noopener">Via Tenor</a></div>`;c.dataset.loaded='1';let s=document.createElement('script');s.src='https://tenor.com/embed.js?ts='+Date.now();s.async=true;document.body.appendChild(s)}
+function renderDaySwitch(){let s=state();q('#daySwitch').innerHTML=['A','B','C'].map(d=>`<button class="day-choice ${s.selectedDay===d?'active':''}" data-day="${d}"><strong>Gün ${d}</strong><small>${dayInfo[d]}</small></button>`).join('');q('#daySwitch').querySelectorAll('.day-choice').forEach(b=>b.onclick=()=>{let st=state();st.selectedDay=b.dataset.day;save(st);renderWorkout();updateStats();renderDaySwitch()})}
+function renderEx(ex,parent,scope,w){let tpl=q('#exerciseTemplate').content.cloneNode(true),card=tpl.querySelector('.exercise'),demo=tpl.querySelector('.demo'),full=ws(w,scope);card.dataset.id=ex.id;tpl.querySelector('.exercise-name').textContent=ex.name;tpl.querySelector('.exercise-meta').textContent=`${ex.muscles} · ${ex.sets} × ${ex.reps}`;tpl.querySelector('.sets').value=ex.sets;tpl.querySelector('.reps').value=ex.reps;let prev=last(ex.id),pill=tpl.querySelector('.last-used'),wi=tpl.querySelector('.weight'),wl=tpl.querySelector('.weight-label');if(ex.weighted===false)wl.hidden=true;else if(prev){pill.hidden=false;pill.textContent=`Son: ${prev.weight} kg`;wi.value=prev.weight}let st=state();tpl.querySelector('.done').checked=!!st.done[full+'::'+ex.id];tpl.querySelector('.cues').innerHTML=`<li>${ex.cue}</li>`;tpl.querySelector('.demo-toggle').onclick=e=>{let wrap=e.currentTarget.parentElement.nextElementSibling,open=wrap.hidden;wrap.hidden=!wrap.hidden;if(open)gif(demo,ex.id);e.currentTarget.textContent=wrap.hidden?'Göster':'Kapat'};tpl.querySelector('.done').onchange=e=>{let s=state();s.done[full+'::'+ex.id]=e.target.checked;save(s);updateStats()};tpl.querySelector('.save-log').onclick=e=>{let s=state(),root=e.currentTarget.closest('.exercise');s.logs.unshift({time:new Date().toISOString(),week:w,scope,id:ex.id,name:ex.name,sets:root.querySelector('.sets').value,reps:root.querySelector('.reps').value,weight:ex.weighted===false?'':root.querySelector('.weight').value});s.done[full+'::'+ex.id]=true;save(s);root.querySelector('.done').checked=true;e.currentTarget.textContent='Kaydedildi ✓';setTimeout(()=>e.currentTarget.textContent='Kaydet',900);updateStats();renderHistory()};parent.appendChild(tpl)}
+function renderWorkout(){let s=state(),d=s.selectedDay,w=+s.week,p=program(w),el=q('#workout');el.innerHTML=`<div class="section-head"><h2>${w===5?'5+':w}. Hafta · Gün ${d}</h2><span class="compact-note">${p[d].length} hareket</span></div>`;p[d].forEach(x=>renderEx(x,el,'day'+d,w))}
+function renderWarmup(){let w=+state().week,el=q('#warmup');el.innerHTML='<div class="section-head"><h2>Isınma</h2><span class="compact-note">6 hareket</span></div>';warmup.forEach(x=>renderEx(x,el,'warmup',w))}
+function setTab(id){qa('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));qa('.panel').forEach(p=>p.classList.toggle('active',p.id===id))}
+function openDay(d){let s=state();s.selectedDay=d;save(s);setTab('workout');renderDaySwitch();renderWorkout();updateStats();scrollTo({top:0,behavior:'smooth'})}
+function renderProgram(){let w=+state().week,p=program(w),el=q('#program');el.innerHTML=`<div class="section-head"><h2>Program</h2><span class="compact-note">Hafta ${w===5?'5+':w}</span></div>`;Object.entries(p).forEach(([d,rs])=>{let c=document.createElement('article');c.className='program-card card';c.innerHTML=`<h3>Gün ${d}</h3><p>${dayInfo[d]}</p><div class="program-list">${rs.map(r=>`<div class="program-item"><div><b>${r.name}</b><small>${r.muscles}</small></div><strong>${r.sets} × ${r.reps}</strong></div>`).join('')}</div><button class="primary open-day">Gün ${d}'yı aç</button>`;c.querySelector('.open-day').onclick=()=>openDay(d);el.appendChild(c)})}
+function renderHistory(){let logs=state().logs||[],el=q('#history');el.innerHTML='<div class="section-head"><h2>Geçmiş</h2><span class="compact-note">Son kayıtlar</span></div>';if(!logs.length){el.insertAdjacentHTML('beforeend','<div class="history-card card empty">Henüz kayıt yok.</div>');return}let box=document.createElement('div');box.className='history-card card';logs.slice(0,100).forEach(x=>{let d=new Date(x.time);box.insertAdjacentHTML('beforeend',`<div class="log-item"><b>${x.name}</b><small>${d.toLocaleString('tr-TR')} · Hafta ${x.week} · ${(x.scope||'').replace('day','Gün ')} · ${x.sets} set · ${x.reps}${x.weight?` · ${x.weight} kg`:''}</small></div>`)});el.appendChild(box)}
+function updateStats(){let s=state(),w=+s.week,d=s.selectedDay,p=program(w),scope=ws(w,'day'+d),total=p[d].length,done=p[d].filter(r=>s.done[scope+'::'+r.id]).length;q('#todayDone').textContent=Math.round(done*100/total)+'%';let wd=0;['A','B','C'].forEach(k=>{let ds=ws(w,'day'+k);if(p[k].every(r=>s.done[ds+'::'+r.id]))wd++});q('#weekDone').textContent=wd+'/3';q('#logCount').textContent=(s.logs||[]).length}
+function renderAll(){renderDaySwitch();renderWorkout();renderWarmup();renderProgram();renderHistory();updateStats()}
+qa('.navbtn').forEach(b=>b.onclick=()=>setTab(b.dataset.tab));let st=state();q('#weekSelect').value=st.week;q('#weekSelect').onchange=e=>{let s=state();s.week=+e.target.value;save(s);renderAll()};let deferredPrompt;addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;q('#installBtn').hidden=false});q('#installBtn').onclick=async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;q('#installBtn').hidden=true};if('serviceWorker'in navigator)addEventListener('load',()=>navigator.serviceWorker.register('./sw.js'));renderAll();
