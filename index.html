@@ -3,106 +3,99 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#0b1020">
+  <meta name="theme-color" content="#07111f">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Evde Güçlen">
   <link rel="manifest" href="./manifest.webmanifest">
   <link rel="icon" href="./icon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="./icon.svg">
-  <link rel="stylesheet" href="./styles.css">
-  <link rel="stylesheet" href="./v5.css">
-  <link rel="stylesheet" href="./v6.css">
+  <link rel="stylesheet" href="./v7.css">
   <title>Evde Güçlen</title>
 </head>
 <body>
-  <header class="topbar">
+  <header class="appbar">
     <div>
-      <div class="eyebrow">Kişisel antrenman uygulaması</div>
       <h1>Evde Güçlen</h1>
+      <div class="subline">Mobil antrenman takip</div>
     </div>
-    <button id="installBtn" class="ghost" hidden>Uygulamayı yükle</button>
+    <button id="installBtn" class="ghost" hidden>Yükle</button>
   </header>
 
-  <main>
-    <section class="hero card">
-      <div>
-        <span class="badge good">3 gün / hafta</span>
-        <span class="badge">180 cm · 77 kg</span>
-        <span class="badge warn">Hiperlordoz odaklı</span>
-        <h2>Göğüs, kol ve karın gelişimi + lumbopelvik kontrol</h2>
-        <p>Az ama verimli hareketler; göğüs, kol ve karın öncelikli. İlk hafta adaptasyon, sonrasında kontrollü progresyon.</p>
-      </div>
-      <div class="weekbox">
-        <label for="weekSelect">Program haftası</label>
-        <select id="weekSelect">
-          <option value="1">1. hafta · adaptasyon</option>
-          <option value="2">2. hafta · temel</option>
-          <option value="3">3. hafta · hacim</option>
-          <option value="4">4. hafta · progresyon</option>
-          <option value="5">5+ hafta · kas gelişimi</option>
+  <main class="shell">
+    <section class="toolbar card">
+      <div class="toolbar-top">
+        <select id="weekSelect" aria-label="Program haftası">
+          <option value="1">1. hafta</option>
+          <option value="2">2. hafta</option>
+          <option value="3">3. hafta</option>
+          <option value="4">4. hafta</option>
+          <option value="5">5+ hafta</option>
         </select>
       </div>
+      <div id="daySwitch" class="day-switch"></div>
+      <div class="stats-row">
+        <div class="mini-stat"><span>Gün</span><strong id="todayDone">0%</strong></div>
+        <div class="mini-stat"><span>Hafta</span><strong id="weekDone">0/3</strong></div>
+        <div class="mini-stat"><span>Kayıt</span><strong id="logCount">0</strong></div>
+      </div>
     </section>
 
-    <section class="stats">
-      <div class="stat card"><small>Seçili gün</small><strong id="todayDone">0%</strong></div>
-      <div class="stat card"><small>Bu hafta</small><strong id="weekDone">0/3</strong></div>
-      <div class="stat card"><small>Toplam kayıt</small><strong id="logCount">0</strong></div>
-    </section>
-
-    <nav class="tabs" aria-label="Ana menü">
-      <button class="tab active" data-tab="today">Antrenman</button>
-      <button class="tab" data-tab="warmup">Isınma</button>
-      <button class="tab" data-tab="program">Program</button>
-      <button class="tab" data-tab="history">Geçmiş</button>
-    </nav>
-
-    <section id="today" class="panel active"></section>
+    <section id="workout" class="panel active"></section>
     <section id="warmup" class="panel"></section>
     <section id="program" class="panel"></section>
     <section id="history" class="panel"></section>
   </main>
 
+  <nav class="bottom-nav" aria-label="Alt menü">
+    <button class="navbtn active" data-tab="workout">Antrenman</button>
+    <button class="navbtn" data-tab="warmup">Isınma</button>
+    <button class="navbtn" data-tab="program">Program</button>
+    <button class="navbtn" data-tab="history">Geçmiş</button>
+  </nav>
+
   <template id="exerciseTemplate">
     <article class="exercise card">
       <div class="exercise-head">
         <div>
-          <div class="exercise-name"></div>
+          <h3 class="exercise-name"></h3>
           <div class="exercise-meta"></div>
         </div>
-        <label class="check">
+        <label class="done-box">
           <input type="checkbox" class="done">
           <span>✓</span>
         </label>
       </div>
 
-      <button class="demo-toggle">Hareketi göster</button>
+      <div class="exercise-topline">
+        <div class="pill last-used" hidden></div>
+        <button class="demo-toggle">Göster</button>
+      </div>
+
       <div class="demo-wrap" hidden>
         <div class="demo"></div>
         <ul class="cues"></ul>
-        <div class="lordosis-note"></div>
       </div>
 
       <div class="logging">
-        <label>Set
+        <label>
+          <span>Set</span>
           <input class="sets" inputmode="numeric" type="number" min="1" max="6">
         </label>
-        <label>Tekrar / süre
+        <label>
+          <span>Tekrar / süre</span>
           <input class="reps" type="text">
         </label>
-        <label>Ağırlık
+        <label class="weight-label">
+          <span>Ağırlık</span>
           <input class="weight" inputmode="decimal" type="number" min="0" step="0.5" placeholder="kg">
         </label>
       </div>
-      <button class="save-log primary">Hareketi kaydet</button>
+
+      <button class="primary save-log">Kaydet</button>
     </article>
   </template>
 
-  <footer>
-    <p>Program genel egzersiz amaçlıdır. Keskin bel ağrısı, bacağa yayılan ağrı, uyuşma veya güç kaybında egzersizi bırakıp sağlık profesyoneline başvur.</p>
-  </footer>
-
-  <script src="./app-v6.js"></script>
+  <script src="./app-v7.js"></script>
 </body>
 </html>
