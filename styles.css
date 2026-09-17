@@ -46,8 +46,12 @@ select:focus,input:focus{border-color:var(--accent)}
 .check input:checked+span{background:#1d7147;border-color:#4bd486;color:white}
 .demo-toggle{width:100%;margin:14px 0 0;text-align:left;color:#c9efff}
 .demo-wrap{margin-top:12px;border-top:1px solid var(--line);padding-top:14px}
-.demo{background:linear-gradient(180deg,#f7fbff,#dbe9f8);border-radius:18px;overflow:hidden;min-height:230px;display:grid;place-items:center}
-.demo svg{width:100%;height:auto;max-height:290px}
+.demo{background:#08101f;border:1px solid #223557;border-radius:18px;overflow:hidden;min-height:72px;display:block}
+.tenor-box{width:100%;background:#08101f;border-radius:18px;overflow:hidden}
+.tenor-gif-embed{width:100%!important;max-width:100%!important;margin:0 auto}
+.tenor-credit{display:block;text-align:right;padding:7px 10px 8px;color:#8ca4c5;font-size:11px;text-decoration:none;background:#0b1430}
+.tenor-credit:hover{color:#ccecff}
+.gif-error{padding:20px;color:var(--muted);text-align:center}
 .cues{padding-left:22px;color:#d2dcf3;line-height:1.55}
 .lordosis-note{background:#15223f;border-left:3px solid #78c9ff;border-radius:8px;padding:10px 12px;color:#b8d9f4;font-size:13px}
 .logging{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
@@ -68,5 +72,5 @@ footer{max-width:900px;margin:18px auto;padding:0 20px 30px;color:#8695b8;font-s
   .logging{grid-template-columns:1fr 1fr}
   .exercise{border-radius:18px;padding:14px}
   .exercise-name{font-size:17px}
-  .demo{min-height:210px}
+  .tenor-box{border-radius:14px}
 }
