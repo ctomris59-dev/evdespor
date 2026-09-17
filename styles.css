@@ -37,6 +37,11 @@ select:focus,input:focus{border-color:var(--accent)}
 .tab.active{background:#244b7b;border-color:#4b9ad3}
 .panel{display:none}.panel.active{display:block}
 .section-title{font-size:22px;margin:22px 3px 8px}.section-note{color:var(--muted);font-size:14px;line-height:1.5;margin:0 3px 12px}
+.day-switch{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:18px 0 8px}
+.day-choice{border:1px solid var(--line);background:#101a33;color:#dce8ff;border-radius:16px;padding:12px;text-align:left}
+.day-choice strong{display:block;font-size:16px}.day-choice small{display:block;color:#92a4c8;font-size:11px;line-height:1.35;margin-top:4px}
+.day-choice.active{background:linear-gradient(180deg,#244d7d,#1b3761);border-color:#5bbdf1;box-shadow:0 0 0 1px rgba(103,212,255,.12) inset}
+.day-choice.active small{color:#d8efff}
 .exercise{padding:16px;margin:12px 0}
 .exercise-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
 .exercise-name{font-weight:800;font-size:18px}.exercise-meta{font-size:13px;color:var(--muted);margin-top:4px}
@@ -54,13 +59,17 @@ select:focus,input:focus{border-color:var(--accent)}
 .gif-error{padding:20px;color:var(--muted);text-align:center}
 .cues{padding-left:22px;color:#d2dcf3;line-height:1.55}
 .lordosis-note{background:#15223f;border-left:3px solid #78c9ff;border-radius:8px;padding:10px 12px;color:#b8d9f4;font-size:13px}
-.logging{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+.logging{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
 .logging label{font-size:12px;color:var(--muted)}
 .logging input{margin-top:6px;padding:10px}
 .primary{width:100%;border:0;background:linear-gradient(135deg,#56c8fa,#7ce2b0);color:#061421;font-weight:900;border-radius:13px;padding:13px;margin-top:10px}
 .primary:active{transform:translateY(1px)}
-.day-card{padding:16px;margin:12px 0}.day-card h3{margin:0 0 8px}.day-card p{color:var(--muted);font-size:13px}
-.day-list{display:flex;gap:7px;flex-wrap:wrap}.day-list span{background:#172647;border-radius:999px;padding:6px 9px;font-size:12px;color:#c8d7f4}
+.day-card{padding:16px;margin:12px 0}.day-card h3{margin:0 0 5px}.day-card p{color:var(--muted);font-size:13px;margin:0}
+.day-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:12px}
+.set-badge{white-space:nowrap;background:#183659;color:#c9ecff;border:1px solid #315c86;border-radius:999px;padding:6px 10px;font-size:12px}
+.program-list{border-top:1px solid var(--line)}
+.program-exercise{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.program-exercise b{display:block;font-size:14px}.program-exercise small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.program-exercise strong{font-size:13px;color:#c9efff;white-space:nowrap}
 .log-item{padding:13px 0;border-bottom:1px solid var(--line)}.log-item:last-child{border-bottom:0}
 .log-item b{display:block}.log-item small{color:var(--muted)}
 .empty{padding:25px;text-align:center;color:var(--muted)}
@@ -69,8 +78,11 @@ footer{max-width:900px;margin:18px auto;padding:0 20px 30px;color:#8695b8;font-s
   main{padding:12px}.topbar{padding:13px 14px}.topbar h1{font-size:20px}
   .hero{padding:17px}.hero h2{font-size:25px}.stats{gap:7px}.stat{padding:12px}.stat strong{font-size:20px}
   .tabs{top:65px;gap:5px}.tab{font-size:12px;padding:10px 5px}
-  .logging{grid-template-columns:1fr 1fr}
+  .day-switch{grid-template-columns:1fr;gap:7px}
+  .day-choice{padding:11px 12px}.day-choice strong{font-size:15px}.day-choice small{font-size:11px}
+  .logging{grid-template-columns:1fr 1fr}.logging label:last-child{grid-column:1/-1}
   .exercise{border-radius:18px;padding:14px}
   .exercise-name{font-size:17px}
   .tenor-box{border-radius:14px}
+  .program-exercise{align-items:flex-start}.program-exercise strong{font-size:12px}
 }
