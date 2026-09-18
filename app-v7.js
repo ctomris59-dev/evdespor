@@ -64,7 +64,7 @@ bwsquat:{type:'vimeo',id:'590347907',url:'https://vimeo.com/590347907',label:'Bo
 neutralbrace:{type:'vimeo',id:'294115090',url:'https://vimeo.com/294115090',label:'Neutral Spine & Pelvis in Supine'},
 pelvictilt:{type:'vimeo',id:'216924047',url:'https://vimeo.com/216924047',label:'Posterior Pelvic Tilt · Keet Health'},
 hipflexorstretch:{type:'vimeo',id:'519770115',url:'https://vimeo.com/519770115',label:'Half-Kneeling Hip Flexor Stretch'},
-bridge:{type:'vimeo',id:'715369789',url:'https://vimeo.com/715369789',label:'Glute Bridge Exercise'},
+bridge:{type:'vimeo',id:'662488407',url:'https://vimeo.com/662488407',label:'Glute Bridge · E3 Rehab'},
 deadbug:{type:'vimeo',id:'355167252',url:'https://vimeo.com/355167252',label:'Dead Bug · Core Stabilisation'},
 birddog:{type:'vimeo',id:'455787228',url:'https://vimeo.com/455787228',label:'Bird Dog · Oxleas NHS'},
 frontplank:{type:'vimeo',id:'502551295',url:'https://vimeo.com/502551295',label:'Forearm Plank'},
